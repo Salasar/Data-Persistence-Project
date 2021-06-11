@@ -25,7 +25,7 @@ public class MainMenu : MonoBehaviour
 
     public void SaveNickname()
     {
-        PersistanceManager.nickname = nicknameInput.text;
+        PersistanceManager.currentNickname = nicknameInput.text;
     }
 
     public void StartGame()

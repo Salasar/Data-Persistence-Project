@@ -18,7 +18,6 @@ public class MainManager : MonoBehaviour
     private int m_Points;
     
     private bool m_GameOver = false;
-
     
     // Start is called before the first frame update
     void Start()
@@ -73,13 +72,18 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
-        PersistanceManager.bestScore = m_Points > PersistanceManager.bestScore ? m_Points : PersistanceManager.bestScore;
-        UpdateBestScore();
+        if (m_Points > PersistanceManager.bestScore) {
+            PersistanceManager.bestScore = m_Points;
+            PersistanceManager.bestScoreNickname = PersistanceManager.currentNickname;
+            UpdateBestScore();
+            PersistanceManager.instance.SaveBestScore();
+        }
+
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
 
     private void UpdateBestScore() {
-        BestScoreText.text = $"Best Score: {PersistanceManager.nickname} : {PersistanceManager.bestScore}";
+        BestScoreText.text = $"Best Score: {PersistanceManager.bestScoreNickname} : {PersistanceManager.bestScore}";
     }
 }
